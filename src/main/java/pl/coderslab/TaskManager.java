@@ -8,9 +8,10 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskManager {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         options();
         try {
+            add(fileArray("tasks.csv"));
             list(fileArray("tasks.csv"));
         } catch (IOException e) {
             System.out.println("Brak takiego pliku");
@@ -67,6 +68,27 @@ public class TaskManager {
         }
     }
 
+    private static String[][] add(String[][] arr) {
+        Scanner scanner = new Scanner(System.in);
+        String[][] arr1 = Arrays.copyOf(arr, arr.length + 1);
+        String[] newArr = new String[3];
+        System.out.println("Please add task description");
+        String task = scanner.nextLine();
+        newArr[0] = task;
+        System.out.println("Please add task due date");
+        String date = scanner.nextLine();
+        newArr[1] = date;
+        System.out.println("Is your task is important: true/false");
+        String important = scanner.nextLine();
+        newArr[2] = important;
+        arr1[arr.length] = newArr;
+        for (int i = 0; i < arr1.length; i++) {
+            for (int j = 0; j < arr1[i].length; j++) {
+                System.out.println(arr1[i][j]);
+            }
+        }
+        return arr1;
+    }
 
 }
 
