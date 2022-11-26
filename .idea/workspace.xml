@@ -7,7 +7,6 @@
     <list default="true" id="092fa95a-0101-49c3-aef5-2c20a6065acc" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/pl/coderslab/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/pl/coderslab/TaskManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/pl/coderslab/TaskManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/pl/coderslab/TaskManager.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +86,8 @@
       <workItem from="1669297583144" duration="459000" />
       <workItem from="1669298074085" duration="17275000" />
       <workItem from="1669418947668" duration="1026000" />
-      <workItem from="1669419985936" duration="4960000" />
+      <workItem from="1669419985936" duration="5581000" />
+      <workItem from="1669464792637" duration="1115000" />
     </task>
     <servers />
   </component>

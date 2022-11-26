@@ -4,6 +4,7 @@ package pl.coderslab;
 import org.apache.commons.lang3.ArrayUtils;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Arrays;
@@ -73,7 +74,12 @@ public class TaskManager {
         String input = scanner.nextLine();
         try {
             int taskNumber = Integer.parseInt(input);
-            arr = ArrayUtils.remove(arr, taskNumber);
+            if (taskNumber >= 0 && taskNumber < arr.length) {
+                arr = ArrayUtils.remove(arr, taskNumber);
+                System.out.println("Value was successfully deleted");
+            }else {
+                System.out.println("Incorrect argument passed. Please give number greater or equal 0");
+            }
         } catch (NumberFormatException e) {
             System.out.println("Incorrect argument passed. Please give number greater or equal 0");
         }
@@ -93,6 +99,7 @@ public class TaskManager {
             index++;
         }
     }
+
     private static void menu() {
         try {
             String[][] tasks = fileArray("tasks.csv");
@@ -102,26 +109,28 @@ public class TaskManager {
             options();
             while (!"exit".equals(input)) {
                 switch (input) {
-                    case "add":
+                    case "add" -> {
                         System.out.println("add");
                         tasks = add(tasks);
-                        break;
-                    case "list":
+                        System.out.println("");
+                    }
+                    case "list" -> {
                         System.out.println("list");
                         list(tasks);
-                        break;
-                    case "remove":
+                        System.out.println("");
+                    }
+                    case "remove" -> {
                         System.out.println("remove");
                         list(tasks);
                         System.out.println("");
                         tasks = remove(tasks);
-                        break;
-                    default:
-                        System.out.println("Please select a correct option.");
+                    }
+                    default -> System.out.println("Please select a correct option.");
                 }
                 options();
                 input = scanner.nextLine();
             }
+
         } catch (IOException e) {
             System.out.println("File not found");
             e.printStackTrace();
