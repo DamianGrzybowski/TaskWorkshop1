@@ -1,6 +1,8 @@
 package pl.coderslab;
 
 
+import org.apache.commons.lang3.ArrayUtils;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,15 +10,8 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 public class TaskManager {
-    public static void main(String[] args) throws IOException {
-        options();
-        try {
-            add(fileArray("tasks.csv"));
-            list(fileArray("tasks.csv"));
-        } catch (IOException e) {
-            System.out.println("Brak takiego pliku");
-            e.printStackTrace();
-        }
+    public static void main(String[] args) {
+        menu();
 
     }
 
@@ -54,6 +49,37 @@ public class TaskManager {
         return tasks;
     }
 
+
+    private static String[][] add(String[][] arr) {
+        Scanner scanner = new Scanner(System.in);
+        String[][] tasks = Arrays.copyOf(arr, arr.length + 1);
+        String[] newArr = new String[3];
+        System.out.println("Please add task description");
+        String task = scanner.nextLine();
+        newArr[0] = task;
+        System.out.println("Please add task due date");
+        String date = scanner.nextLine();
+        newArr[1] = date;
+        System.out.println("Is your task is important: true/false");
+        String important = scanner.nextLine();
+        newArr[2] = important;
+        tasks[arr.length] = newArr;
+        return tasks;
+    }
+
+    private static String[][] remove(String[][] arr) {
+        System.out.println("Please select number to remove");
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+        try {
+            int taskNumber = Integer.parseInt(input);
+            arr = ArrayUtils.remove(arr, taskNumber);
+        } catch (NumberFormatException e) {
+            System.out.println("Incorrect argument passed. Please give number greater or equal 0");
+        }
+        return arr;
+    }
+
     private static void list(String[][] arr) throws IOException {
         int index = 0;
         for (int i = 0; i < arr.length; i++) {
@@ -67,27 +93,40 @@ public class TaskManager {
             index++;
         }
     }
-
-    private static String[][] add(String[][] arr) {
-        Scanner scanner = new Scanner(System.in);
-        String[][] arr1 = Arrays.copyOf(arr, arr.length + 1);
-        String[] newArr = new String[3];
-        System.out.println("Please add task description");
-        String task = scanner.nextLine();
-        newArr[0] = task;
-        System.out.println("Please add task due date");
-        String date = scanner.nextLine();
-        newArr[1] = date;
-        System.out.println("Is your task is important: true/false");
-        String important = scanner.nextLine();
-        newArr[2] = important;
-        arr1[arr.length] = newArr;
-        for (int i = 0; i < arr1.length; i++) {
-            for (int j = 0; j < arr1[i].length; j++) {
-                System.out.println(arr1[i][j]);
+    private static void menu() {
+        try {
+            String[][] tasks = fileArray("tasks.csv");
+            Scanner scanner = new Scanner(System.in);
+            options();
+            String input = scanner.nextLine();
+            options();
+            while (!"exit".equals(input)) {
+                switch (input) {
+                    case "add":
+                        System.out.println("add");
+                        tasks = add(tasks);
+                        break;
+                    case "list":
+                        System.out.println("list");
+                        list(tasks);
+                        break;
+                    case "remove":
+                        System.out.println("remove");
+                        list(tasks);
+                        System.out.println("");
+                        tasks = remove(tasks);
+                        break;
+                    default:
+                        System.out.println("Please select a correct option.");
+                }
+                options();
+                input = scanner.nextLine();
             }
+        } catch (IOException e) {
+            System.out.println("File not found");
+            e.printStackTrace();
         }
-        return arr1;
+
     }
 
 }
